@@ -64,7 +64,7 @@ plt.legend()
 plt.title('Filtered Heartbeat Data with Detected Highest Peaks')
 plt.grid(True)
 plt.xlim(0,4000)
-# Show the plot
+
 HRPlot.show()
 
 
@@ -89,19 +89,17 @@ for i in range(len(peaks) - interval):
     nulpunt = nulpunt + interval
     nulpunt2 = nulpunt2 + interval
 
+x = range(len(HRV))
 
+fig, ax = plt.subplots()
+ax.plot(x, HRV, label="HRV")
 
+ax.set_xlabel("Sample")
+ax.set_ylabel("HRV")
+ax.set_title("Heart Rate Variability (HRV) Data")
 
+ax.legend()
 
-print(len(peaks))
-
-plt.figure(figsize=(12, 6))
-plt.plot(HRV, label='HRV')
-plt.xlabel('Time (Row Index)')
-plt.ylabel('Amplitude')
-plt.title('HRV data')
-plt.grid(True)
-plt.xlim(0,4000)
 plt.show()
 
 #Calculate HRV with SDNN

@@ -103,4 +103,3 @@ ax.legend()
 plt.show()
 
 #Calculate HRV with SDNN
-#werkt het?

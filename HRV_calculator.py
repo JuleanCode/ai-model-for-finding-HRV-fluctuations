@@ -64,11 +64,11 @@ plt.legend()
 plt.title('Filtered Heartbeat Data with Detected Highest Peaks')
 plt.grid(True)
 plt.xlim(0,4000)
-
+# Show the plot
 HRPlot.show()
 
 
-interval = 30 #aantal meetpunten per HRV waarde
+interval = 29 #aantal meetpunten per HRV waarde
 
 nulpunt = 0
 nulpunt2 = interval
@@ -76,30 +76,31 @@ nulpunt2 = interval
 #Calculate HRV with RMSSD
 HRV = []
 HRVcount = 0
+q = 0
 
-for i in range(len(peaks) - interval):
+for i in range(int(len(peaks)/interval)):
     for j in range(nulpunt, nulpunt2):
-        RMSSD.append(math.pow(heartbeat_data[peaks[i+1]] - heartbeat_data[peaks[i]], 2)) #heartbeat_data vervangen door pieken
-        i = i+1
+        RMSSD.append(math.pow(heartbeat_data[peaks[nulpunt+q+1]] - heartbeat_data[peaks[nulpunt+q]], 2)) #heartbeat_data vervangen door pieken
+        q = q+1
     for g in range(interval):
         HRVcount += RMSSD[g]
     HRV.append(HRVcount/(interval-1))
     HRVcount = 0
+    q = 0
     RMSSD = []
     nulpunt = nulpunt + interval
     nulpunt2 = nulpunt2 + interval
 
-x = range(len(HRV))
 
-fig, ax = plt.subplots()
-ax.plot(x, HRV, label="HRV")
 
-ax.set_xlabel("Sample")
-ax.set_ylabel("HRV")
-ax.set_title("Heart Rate Variability (HRV) Data")
 
-ax.legend()
-
+plt.figure(figsize=(12, 6))
+plt.plot(HRV, label='HRV')
+plt.xlabel('Time (Row Index)')
+plt.ylabel('Amplitude')
+plt.title('HRV data')
+plt.grid(True)
+plt.xlim(0,200)
 plt.show()
 
 #Calculate HRV with SDNN

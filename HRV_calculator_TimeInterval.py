@@ -68,28 +68,38 @@ plt.xlim(0,4000)
 HRPlot.show()
 
 
-interval = 29 #aantal meetpunten per HRV waarde
+interval = 3000 #Meettijd per HRV waarde (ms)
 
-nulpunt = 0
-nulpunt2 = interval
 
+interval1 = 0
+interval2 = 0
 #Calculate HRV with RMSSD
 HRV = []
 HRVcount = 0
 q = 0
 
-for i in range(int(len(peaks)/interval)):
-    for j in range(nulpunt, nulpunt2):
-        RMSSD.append(math.pow(heartbeat_data[peaks[nulpunt+q+1]] - heartbeat_data[peaks[nulpunt+q]], 2)) #heartbeat_data vervangen door pieken
+peaks_in_range_interval = 0
+peaks_in_range_interval2 = len([peak for peak in peaks if 0 <= peak <= interval])
+
+
+for i in range(int(len(heartbeat_data)/interval)):
+    for j in range(peaks_in_range_interval, peaks_in_range_interval2):
+        RMSSD.append(math.pow(heartbeat_data[peaks[peaks_in_range_interval+q+1]] - heartbeat_data[peaks[peaks_in_range_interval+q]], 2)) #heartbeat_data vervangen door pieken
         q = q+1
-    for g in range(interval):
+    for g in range(peaks_in_range_interval2-peaks_in_range_interval):
         HRVcount += RMSSD[g]
-    HRV.append(HRVcount/(interval-1))
+    HRV.append(HRVcount/(peaks_in_range_interval2-1))
     HRVcount = 0
     q = 0
     RMSSD = []
-    nulpunt = nulpunt + interval
-    nulpunt2 = nulpunt2 + interval
+    print(peaks_in_range_interval)
+    interval1 = interval1+interval
+    peaks_in_range_interval = peaks_in_range_interval + len([peak for peak in peaks if interval1 - interval <= peak <= interval1])
+    peaks_in_range_interval2 = peaks_in_range_interval2 + len([peak for peak in peaks if interval1 <= peak <= interval1 + interval])
+    
+    
+
+
 
 
 
@@ -100,7 +110,7 @@ plt.xlabel('Time (Row Index)')
 plt.ylabel('Amplitude')
 plt.title('HRV data')
 plt.grid(True)
-plt.xlim(0,200)
+plt.xlim(0,int(len(heartbeat_data)/interval))
 plt.show()
 
 #test

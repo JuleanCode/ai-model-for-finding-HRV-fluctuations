@@ -68,7 +68,7 @@ plt.xlim(0,4000)
 HRPlot.show()
 
 
-interval = 3000 #Meettijd per HRV waarde (ms)
+interval = 30000 #Meettijd per HRV waarde (ms)
 
 
 interval1 = 0

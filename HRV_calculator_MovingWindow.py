@@ -63,26 +63,26 @@ plt.ylabel('Amplitude')
 plt.legend()
 plt.title('Filtered Heartbeat Data with Detected Highest Peaks')
 plt.grid(True)
-plt.xlim(0,4000)
+plt.xlim(0,1500000)
 # Show the plot
 HRPlot.show()
 
 
-interval = 3000 #Meettijd per HRV waarde (ms)
+interval = 30000 #Meettijd per HRV waarde (ms)
 
-
-interval1 = 0
-interval2 = 0
 #Calculate HRV with RMSSD
 HRV = []
 HRVcount = 0
 q = 0
 
+waarde1 = 0
+waarde2 = interval
+
+
 peaks_in_range_interval = 0
-peaks_in_range_interval2 = len([peak for peak in peaks if 0 <= peak <= interval])
+peaks_in_range_interval2 = len([peak for peak in peaks if waarde1 <= peak <= waarde2])
 
-
-for i in range(int(len(heartbeat_data)/interval)):
+for i in range(int((len(heartbeat_data)-interval)/1000)):
     for j in range(peaks_in_range_interval, peaks_in_range_interval2):
         RMSSD.append(math.pow(heartbeat_data[peaks[peaks_in_range_interval+q+1]] - heartbeat_data[peaks[peaks_in_range_interval+q]], 2)) #heartbeat_data vervangen door pieken
         q = q+1
@@ -92,13 +92,15 @@ for i in range(int(len(heartbeat_data)/interval)):
     HRVcount = 0
     q = 0
     RMSSD = []
-    print(peaks_in_range_interval)
-    interval1 = interval1+interval
-    peaks_in_range_interval = peaks_in_range_interval + len([peak for peak in peaks if interval1 - interval <= peak <= interval1])
-    peaks_in_range_interval2 = peaks_in_range_interval2 + len([peak for peak in peaks if interval1 <= peak <= interval1 + interval])
+    waarde1 = waarde1 + 1000
+    waarde2 = waarde2 + 1000
+    peaks_in_range_interval = len([peak for peak in peaks if 0 <= peak <= waarde1])
+    peaks_in_range_interval2 = len([peak for peak in peaks if 0 <= peak <= waarde2])
     
+   
     
 
+    
 
 
 
@@ -110,7 +112,7 @@ plt.xlabel('Time (Row Index)')
 plt.ylabel('Amplitude')
 plt.title('HRV data')
 plt.grid(True)
-plt.xlim(0,int(len(heartbeat_data)/interval))
+plt.xlim(0,1500)
 plt.show()
 
 #test

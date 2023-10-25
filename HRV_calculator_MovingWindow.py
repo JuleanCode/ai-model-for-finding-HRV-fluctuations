@@ -71,6 +71,8 @@ HRPlot.show()
 interval = 30000 #Meettijd per HRV waarde (ms)
 
 #Calculate HRV with RMSSD
+
+
 HRV = []
 HRVcount = 0
 q = 0
@@ -97,17 +99,9 @@ for i in range(int((len(heartbeat_data)-interval)/1000)):
     peaks_in_range_interval = len([peak for peak in peaks if 0 <= peak <= waarde1])
     peaks_in_range_interval2 = len([peak for peak in peaks if 0 <= peak <= waarde2])
     
-   
-    
-
-    
-
-
-
-
 
 plt.figure(figsize=(12, 6))
-plt.plot(HRV, label='HRV')
+plt.plot(HRV, label='HRV - RMSSD')
 plt.xlabel('Time (Row Index)')
 plt.ylabel('Amplitude')
 plt.title('HRV data')
@@ -115,5 +109,39 @@ plt.grid(True)
 plt.xlim(0,1500)
 plt.show()
 
-#test
+
+
 #Calculate HRV with SDNN
+
+HRV = []
+HRVcount = 0
+q = 0
+waarde1 = 0
+waarde2 = interval
+peaks_in_range_interval = 0
+peaks_in_range_interval2 = len([peak for peak in peaks if waarde1 <= peak <= waarde2])
+
+SDNNGem = 0
+SDNN = []
+
+
+
+for i in range(int((len(heartbeat_data)-interval)/1000)):
+    for j in range(peaks_in_range_interval, peaks_in_range_interval2):
+        SDNNGem += heartbeat_data[peaks[peaks_in_range_interval]]
+    SDNNGem = SDNNGem/(peaks_in_range_interval2 - peaks_in_range_interval)
+    for g in range(peaks_in_range_interval, peaks_in_range_interval2):
+        SDNN.append(math.pow(heartbeat_data[peaks[peaks_in_range_interval]] - SDNNGem, 2)) #heartbeat_data vervangen door pieken
+
+
+
+
+
+plt.figure(figsize=(12, 6))
+plt.plot(HRV, label='HRV - SDNN')
+plt.xlabel('Time (Row Index)')
+plt.ylabel('Amplitude')
+plt.title('HRV data')
+plt.grid(True)
+plt.xlim(0,1500)
+plt.show()

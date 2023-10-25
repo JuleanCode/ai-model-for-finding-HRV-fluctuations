@@ -81,7 +81,6 @@ def calculate_rmssd(heartbeat_data, peaks):
         RMSSD = [math.pow(heartbeat_data[peaks[j+1]] - heartbeat_data[peaks[j]], 2) for j, peak in enumerate(peaks_in_range_interval)]
         HRVcount = sum(RMSSD)
         HRVRMSSD.append(HRVcount / (len(peaks_in_range_interval) - 1))
-        
         waarde1 += 1000
         waarde2 += 1000
     
@@ -125,8 +124,7 @@ for i in range(int((len(heartbeat_data)-interval)/1000)):
         q = q+1
 
     #Tel verkregen waardes bij elkaar op
-    for g in range(peaks_in_range_interval2-peaks_in_range_interval):
-        HRVcount += RMSSD[g]
+    HRVcount = sum(RMSSD)
 
     #Deel deze waarde door het totaal aantal waardes -1
     HRVRMSSD.append(HRVcount/(peaks_in_range_interval2-1))

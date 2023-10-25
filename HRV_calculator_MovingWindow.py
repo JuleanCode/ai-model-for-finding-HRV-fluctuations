@@ -6,7 +6,7 @@ import math
 
 
 # Define the path to your .txt file
-file_path = "C:\\Users\\mickm\\Zuyd Hogeschool\\AI Stress - Documenten\\General\\Onderzoek\\Onderzoek Biometrie\\Research B\\Data\\A(N01)M.txt"  # Replace with the actual file path
+file_path = "data\Research_B\Data\A(N01)M.txt"  # Replace with the actual file path
 
 # Initialize variables to keep track of the highest peaks
 highest_peak_values = []

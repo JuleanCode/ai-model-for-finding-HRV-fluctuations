@@ -6,7 +6,7 @@ import math
 
 
 # Define the path to your .txt file
-file_path = "data\Research_B\Data\A(N01)M.txt"  # Replace with the actual file path
+file_path = "data\Research_B\Data\E(N05)M.txt"  # Replace with the actual file path
 
 # Initialize variables to keep track of the highest peaks
 highest_peak_values = []
@@ -67,6 +67,40 @@ plt.xlim(0,1500000)
 # Show the plot
 HRPlot.show()
 
+#--------------------- Nieuwe berekening -------------------------
+
+interval = 30000  # Meettijd per HRV waarde (ms)
+
+def calculate_rmssd(heartbeat_data, peaks):
+    HRVRMSSD = []
+    waarde1 = 0
+    waarde2 = interval
+    
+    for i in range(int((len(heartbeat_data) - interval) / 1000)):
+        peaks_in_range_interval = [peak for peak in peaks if waarde1 <= peak <= waarde2]
+        RMSSD = [math.pow(heartbeat_data[peaks[j+1]] - heartbeat_data[peaks[j]], 2) for j, peak in enumerate(peaks_in_range_interval)]
+        HRVcount = sum(RMSSD)
+        HRVRMSSD.append(HRVcount / (len(peaks_in_range_interval) - 1))
+        
+        waarde1 += 1000
+        waarde2 += 1000
+    
+    return HRVRMSSD
+
+# Voer de functie uit om HRVRMSSD te berekenen
+HRVRMSSD = calculate_rmssd(heartbeat_data, peaks)
+
+# Plot de HRV data met de RMSSD formule
+RMSSDPlot = plt.figure(figsize=(12, 6))
+plt.plot(HRVRMSSD, label='HRV')
+plt.xlabel('Time (Row Index)')
+plt.ylabel('Amplitude')
+plt.title('HRV data - RMSSD Test')
+plt.grid(True)
+plt.xlim(0, 1500)
+plt.show()  
+
+#---------------------------------
 
 interval = 30000 #Meettijd per HRV waarde (ms)
 

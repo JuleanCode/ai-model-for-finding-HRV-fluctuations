@@ -73,7 +73,7 @@ interval = 30000 #Meettijd per HRV waarde (ms)
 #Calculate HRV with RMSSD
 
 
-HRV = []
+HRVRMSSD = []
 HRVcount = 0
 q = 0
 
@@ -85,23 +85,32 @@ peaks_in_range_interval = 0
 peaks_in_range_interval2 = len([peak for peak in peaks if waarde1 <= peak <= waarde2])
 
 for i in range(int((len(heartbeat_data)-interval)/1000)):
+    #Neem de kwadraten van de verschillen tussen de waardes
     for j in range(peaks_in_range_interval, peaks_in_range_interval2):
         RMSSD.append(math.pow(heartbeat_data[peaks[peaks_in_range_interval+q+1]] - heartbeat_data[peaks[peaks_in_range_interval+q]], 2)) #heartbeat_data vervangen door pieken
         q = q+1
+
+    #Tel verkregen waardes bij elkaar op
     for g in range(peaks_in_range_interval2-peaks_in_range_interval):
         HRVcount += RMSSD[g]
-    HRV.append(HRVcount/(peaks_in_range_interval2-1))
+
+    #Deel deze waarde door het totaal aantal waardes -1
+    HRVRMSSD.append(HRVcount/(peaks_in_range_interval2-1))
+
+    #Reset variabelen
     HRVcount = 0
     q = 0
     RMSSD = []
+    
+    #Verschuif het window met 1 seconden (1000 ms)
     waarde1 = waarde1 + 1000
     waarde2 = waarde2 + 1000
     peaks_in_range_interval = len([peak for peak in peaks if 0 <= peak <= waarde1])
     peaks_in_range_interval2 = len([peak for peak in peaks if 0 <= peak <= waarde2])
     
-
+#plot de HRV data met de RMSSD formule
 RMSSDPlot = plt.figure(figsize=(12, 6))
-plt.plot(HRV, label='HRV')
+plt.plot(HRVRMSSD, label='HRV')
 plt.xlabel('Time (Row Index)')
 plt.ylabel('Amplitude')
 plt.title('HRV data - RMSSD')
@@ -113,7 +122,7 @@ RMSSDPlot.show()
 
 #Calculate HRV with SDNN
 
-HRV = []
+
 HRVcount = 0
 q = 0
 waarde1 = 0
@@ -129,29 +138,32 @@ SDNNV = 0
 r=0
 
 for i in range(int((len(heartbeat_data)-interval)/1000)):
+    #Tel meetwaardes bij elkaar op en deel deze door het aantal waardes om het gemiddelde te berekenen.
     for j in range(peaks_in_range_interval, peaks_in_range_interval2):
         SDNNGem += heartbeat_data[peaks[peaks_in_range_interval]]
     SDNNGem = SDNNGem/(peaks_in_range_interval2 - peaks_in_range_interval)
+
+    #Bereken de afwijking per meetwaarde ten opzichte van het gemiddelde en neem hier het kwadraat van
     for g in range(peaks_in_range_interval, peaks_in_range_interval2):
         SDNN.append(math.pow(heartbeat_data[peaks[peaks_in_range_interval+r]] - SDNNGem, 2)) #heartbeat_data vervangen door pieken
         r = r+1
+
+    #Tel de gekwadrateerde afwijkingen bij elkaar op en deel deze door het aantal meet meetwaardes, en neem hier vervolgens de wortel van
     for z in range(len(SDNN)):
         SDNNV += SDNN[z]
-    HRVSDNN.append(math.sqrt(SDNNV/4))
-    print(SDNN)
+    HRVSDNN.append(math.sqrt(SDNNV/len(SDNN)))
+
+    #Reset variabelen
     r = 0
     SDNNGem = 0
     SDNNV = 0
     SDNN = []
+
+    #Verschuif het window met 1 seconden (1000 ms)
     waarde1 = waarde1 + 1000
     waarde2 = waarde2 + 1000
     peaks_in_range_interval = len([peak for peak in peaks if 0 <= peak <= waarde1])
     peaks_in_range_interval2 = len([peak for peak in peaks if 0 <= peak <= waarde2])
-
-
-
-
-
 
 
 

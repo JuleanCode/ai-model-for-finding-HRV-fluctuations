@@ -67,9 +67,10 @@ plt.xlim(0,1500000)
 # Show the plot
 HRPlot.show()
 
+
 #--------------------- Nieuwe berekening -------------------------
 
-interval = 30000  # Meettijd per HRV waarde (ms)
+interval = 29000  # Meettijd per HRV waarde (ms)
 
 def calculate_rmssd(heartbeat_data, peaks):
     HRVRMSSD = []
@@ -97,6 +98,8 @@ plt.ylabel('Amplitude')
 plt.title('HRV data - RMSSD Test')
 plt.grid(True)
 plt.xlim(0, 1500)
+plt.scatter([180, 570, 960], [HRVRMSSD[180], HRVRMSSD[570], HRVRMSSD[960]], c='red', label='Stresstaak', s=1500, marker='|')
+plt.legend()
 plt.show()  
 
 #---------------------------------
@@ -148,9 +151,10 @@ plt.ylabel('Amplitude')
 plt.title('HRV data - RMSSD')
 plt.grid(True)
 plt.xlim(0,1500)
+plt.ylim(0,500)
+plt.scatter([180, 570, 960], [HRVRMSSD[180], HRVRMSSD[570], HRVRMSSD[960]], c='red', label='Stresstaak', s=1500, marker='|')
+plt.legend()
 RMSSDPlot.show()
-
-
 
 #Calculate HRV with SDNN
 
@@ -206,4 +210,6 @@ plt.ylabel('Amplitude')
 plt.title('HRV data - SDNN')
 plt.grid(True)
 plt.xlim(0,1500)
+plt.scatter([180, 570, 960], [HRVSDNN[180], HRVSDNN[570], HRVSDNN[960]], c='red', label='Stresstaak', s=1500, marker='|')
+plt.legend()
 plt.show()

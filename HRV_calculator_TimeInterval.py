@@ -6,7 +6,7 @@ import math
 
 
 # Define the path to your .txt file
-file_path = "C:\\Users\\mickm\\Zuyd Hogeschool\\AI Stress - Documenten\\General\\Onderzoek\\Onderzoek Biometrie\\Research B\\Data\\A(N01)M.txt"  # Replace with the actual file path
+file_path = "data\Research_B\Data\A(N01)M.txt"  # Replace with the actual file path
 
 # Initialize variables to keep track of the highest peaks
 highest_peak_values = []
@@ -92,7 +92,6 @@ for i in range(int(len(heartbeat_data)/interval)):
     HRVcount = 0
     q = 0
     RMSSD = []
-    print(peaks_in_range_interval)
     interval1 = interval1+interval
     peaks_in_range_interval = peaks_in_range_interval + len([peak for peak in peaks if interval1 - interval <= peak <= interval1])
     peaks_in_range_interval2 = peaks_in_range_interval2 + len([peak for peak in peaks if interval1 <= peak <= interval1 + interval])

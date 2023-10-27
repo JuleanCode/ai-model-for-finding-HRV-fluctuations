@@ -6,7 +6,7 @@ import math
 
 
 # Define the path to your .txt file
-file_path = "data\Research_B\Data\E(N05)M.txt"  # Replace with the actual file path
+file_path = "data\Research_B\Data\E(N35)V.txt"  # Replace with the actual file path
 
 # Initialize variables to keep track of the highest peaks
 highest_peak_values = []
@@ -71,6 +71,8 @@ HRPlot.show()
 #--------------------- Nieuwe berekening -------------------------
 
 interval = 29000  # Meettijd per HRV waarde (ms)
+waarde1 = 0
+waarde2 = interval
 
 def calculate_rmssd(heartbeat_data, peaks):
     HRVRMSSD = []

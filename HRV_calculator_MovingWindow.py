@@ -93,7 +93,7 @@ def calculate_rmssd(heartbeat_data, peaks):
 HRVRMSSD = calculate_rmssd(heartbeat_data, peaks)
 
 # Plot de HRV data met de RMSSD formule
-RMSSDPlot = plt.figure(figsize=(12, 6))
+RMSSDPlot2 = plt.figure(figsize=(12, 6))
 plt.plot(HRVRMSSD, label='HRV')
 plt.xlabel('Time (Row Index)')
 plt.ylabel('Amplitude')
@@ -102,7 +102,7 @@ plt.grid(True)
 plt.xlim(0, 1500)
 plt.scatter([180, 570, 960], [HRVRMSSD[180], HRVRMSSD[570], HRVRMSSD[960]], c='red', label='Stresstaak', s=1500, marker='|')
 plt.legend()
-plt.show()  
+RMSSDPlot2.show()  
 
 #---------------------------------
 

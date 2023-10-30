@@ -39,7 +39,7 @@ heartbeat_data = data[:, 2]
 
 # Find peaks in the original heartbeat data (unfiltered)
 # You may need to adjust the threshold as needed for the unfiltered data
-heightthreshold = 150  # Adjust this threshold as needed
+heightthreshold = 200  # Adjust this threshold as needed
 widthtreshold = 200
 
 
@@ -97,7 +97,7 @@ RMSSDPlot2 = plt.figure(figsize=(12, 6))
 plt.plot(HRVRMSSD, label='HRV')
 plt.xlabel('Time (Row Index)')
 plt.ylabel('Amplitude')
-plt.title('HRV data - RMSSD Test')
+plt.title('HRV data - RMSSD Nieuw Test')
 plt.grid(True)
 plt.xlim(0, 1500)
 plt.scatter([180, 570, 960], [HRVRMSSD[180], HRVRMSSD[570], HRVRMSSD[960]], c='red', label='Stresstaak', s=1500, marker='|')

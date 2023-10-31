@@ -6,7 +6,7 @@ import math
 
 
 # Define the path to your .txt file
-file_path = "data\Research_B\Data\A(N01)M.txt"  # Replace with the actual file path
+file_path = "data\Research_B\Data\E(N17)M.txt"  # Replace with the actual file path
 
 # Initialize variables to keep track of the highest peaks
 highest_peak_values = []
@@ -65,7 +65,7 @@ plt.title('Filtered Heartbeat Data with Detected Highest Peaks')
 plt.grid(True)
 plt.xlim(0,5000)
 # Show the plot
-HRPlot.show()
+plt.show()
 
 
 #--------------------- Nieuwe berekening -------------------------
